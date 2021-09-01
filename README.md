@@ -1,19 +1,33 @@
 # FSO-MiniShell
-Um mini shell para executar e cronômetrar tempo de programas em C - FSO 2021/1 (UnB)
+      Um mini shell para executar e cronômetrar tempo de programas em C - FSO 2021/1 (UnB)
 
-# Enunciado
-Esta atividade permite nota parcial, ou seja, a funcionalidade de porcentagem de acerto será utilizada para a nota parcial, no entanto:
+#Timed mini-shell
+      Iuri, um jovem rapaz fissurado pelo tempo das coisas, está muito curioso para saber quanto tempo demora cada um dos seus programas preferidos.
 
-- Time Limit Exceeded e Runtime Error terão nota ZERADA para qualquer porcentagem de acerto.
-- Wrong Aswer será considerado para cálculo da nota parcial, desde que maior que 60%
-- Time Limit e Runtime indicam que o seu programa está com graves falhas e que está utilizando algoritmos errados para resolver a tarefa.
+      Como Iuri é muito ocupado ele pediu a sua ajuda para escrever um mini shell capaz de executar os comandos instalados em seu computador.
 
-Você poderá utilizar os logs do mojinho sofrendo a seguinte penalidade:
+      O mini shell deve ser capaz de ler um conjunto de comandos, pela entrada padrão, executar o comando e ao terminar a execução do comando ele deverá imprimir o tempo (em segundos) de execução e o código de retorno do programa.
 
-- 5 pontos por pedido de log ao mojinho
-- O máximo de penalidade será 50 pontos.
-      - Depois de 10 chamadas não será descontada nenhuma nota adicional. Isso implica em nota máxima de 50 caso obtenha 100% de acerto nos problemas.
-- O desconto do mojinho é global e não por problema
-- As primeiras duas consultas ao mojinho são gratuítas (a contabilidade é global, então utilize com sabedoria)
+#Entrada
+      A entrada é composta por um único caso de testes possuindo diversas linhas. Cada linha é composta por duas strings (sem espaço) de até 255 caracteres cada. A primeira linha contém o PATH completo de um binário e a segunda string possui um argumento a ser passado para o programa que o mini shell deve executar.
 
-O log ao mojinho é feito enviando o comando getlog para o @mojinho_bot no telegram. Como parâmetro você deve passar o código da submissão, que está disponibilizado na tabela resumo das submissões na aba Contest
+#Saída
+      A saída é composta por diversas linhas. Para cada comando executado o seu programa deve imprimir uma única linha contendo: > Demorou %X
+      segundos, retornou %Y, trocando %X pelo tempo, com precisão de 1 casa decimal, em segundos e %Y pelo código de retorno.
+
+      Caso o comando passado não exista, ou não possa ser executado, o seu programa deve imprimir a mensagem, em inglês, do código de erro configurado na variável errno modificado pela função execl(3). Com a mensagem > Erro: %s , sendo %s substituída pela mensagem de erro gerada pela função strerror(3)
+
+      No término da execução deve imprimir quantos segundos foram utilizados pela execução completa dos comandos, com a string >> O tempo total foi de
+      %X segundos.
+
+      O que fazer quando o tempo for quebrado?
+      O seu programa deve imprimir o tempo com a precisão de 1 casa decimal, ou seja, você vai precisar olhar para além do tempo em segundos e precisará verificar a diferença na casa dos milisegundos. A função gettimeofday(2) vai ajudá-lo a fazer essa comparação.
+
+      No primeiro exemplo há um sleep 1.1 que geralmente demora um pouco mais que 1.1 segundos, veja o exemplo abaixo:
+
+      ribas@charge:~$ time sleep 1.1
+
+      real    0m1.101s
+      user    0m0.001s
+      sys 0m0.000s
+      Para garantir a simplificidade deste exercício nos interessamos somente com 1 casa de precisão.
