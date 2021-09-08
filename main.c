@@ -32,7 +32,7 @@ int main() {
             if (strcmp(strerror(errno), "Success") != 0){
                 printf("> Erro: %s\n", strerror(errno));
                 error = errno;
-                exit(error);
+                exit(errno);
             }
         }
         if (waitpid(pid, &error, WUNTRACED)) {
