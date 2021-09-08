@@ -23,26 +23,27 @@ int main() {
         gettimeofday(&inicio, NULL);
         
         //Cria fork
+        fflush(stdout);
         int pid = fork();
         
         //Se for o filho
         if (pid==0) {
             execl(PATH, PATH, arg, NULL);  
             if (strcmp(strerror(errno), "Success") != 0){
-                printf("Erro: %s\n", strerror(errno));
+                printf("> Erro: %s\n", strerror(errno));
                 error = errno;
                 exit(error);
             }
         }
-        if (wait(&error)) {
+        if (waitpid(pid, &error, WUNTRACED)) {
             error = WEXITSTATUS(error);
             struct timeval final;
             gettimeofday(&final, NULL);
-            printf("Demorou %.1lf segundos, retornou %d\n", (double)(final.tv_usec - inicio.tv_usec) / 1000000 + (double)(final.tv_sec - inicio.tv_sec), error);
+            printf("> Demorou %.1lf segundos, retornou %d\n", (double)(final.tv_usec - inicio.tv_usec) / 1000000 + (double)(final.tv_sec - inicio.tv_sec), error);
         }
     }
     gettimeofday(&overall_end, NULL);
 
-    printf("O tempo total foi de %.1lf segundos\n", (double)(overall_end.tv_usec - overall_start.tv_usec) / 1000000 + (double)(overall_end.tv_sec - overall_start.tv_sec));
+    printf(">> O tempo total foi de %.1lf segundos\n", (double)(overall_end.tv_usec - overall_start.tv_usec) / 1000000 + (double)(overall_end.tv_sec - overall_start.tv_sec));
     exit(0);
 }
