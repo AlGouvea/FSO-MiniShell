@@ -1,0 +1,8 @@
+> Demorou 0.0 segundos, retornou 1
+> Demorou 0.0 segundos, retornou 1
+x86_64
+> Demorou 0.0 segundos, retornou 0
+> Erro: No such file or directory
+> Demorou 0.0 segundos, retornou 2
+> Demorou 0.3 segundos, retornou 0
+>> O tempo total foi de 0.3 segundos
